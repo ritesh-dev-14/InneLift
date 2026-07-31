@@ -5,6 +5,7 @@ import Logo from "./assets/Logo1.png";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import CustomCursor from "./components/CustomCursor";
 
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -43,6 +44,8 @@ function App() {
 
   return (
     <BrowserRouter>
+      <CustomCursor />
+      
       {/* Background Preloader */}
       <AnimatePresence>
         {isLoading && (

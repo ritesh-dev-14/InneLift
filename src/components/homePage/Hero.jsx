@@ -259,11 +259,15 @@ const Hero = () => {
         </div>
 
         {/* Floating Side Labels */}
-        <div ref={leftLabelRef} className="pointer-events-none absolute left-2 top-1/2 z-20 hidden -translate-y-1/2 rotate-[-90deg] text-[clamp(0.8rem,1.2vw,1.2rem)] font-semibold uppercase tracking-[0.5em] text-white/20 md:block">
-          INNE LIFT
+        <div ref={leftLabelRef} className="pointer-events-none absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rotate-[-90deg] flex-row items-center gap-4 text-[clamp(0.7rem,1vw,1rem)] font-medium uppercase tracking-[0.5em] text-white/30 md:flex">
+          <span className="w-12 h-[1px] bg-white/20" />
+          <span>INNE LIFT</span>
+          <span className="w-12 h-[1px] bg-white/20" />
         </div>
-        <div ref={rightLabelRef} className="pointer-events-none absolute right-2 top-1/2 z-20 hidden -translate-y-1/2 rotate-[90deg] text-[clamp(0.8rem,1.2vw,1.2rem)] font-semibold uppercase tracking-[0.5em] text-white/20 md:block">
-          INNE LIFT
+        <div ref={rightLabelRef} className="pointer-events-none absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rotate-[90deg] flex-row items-center gap-4 text-[clamp(0.7rem,1vw,1rem)] font-medium uppercase tracking-[0.5em] text-white/30 md:flex">
+          <span className="w-12 h-[1px] bg-white/20" />
+          <span>INNE LIFT</span>
+          <span className="w-12 h-[1px] bg-white/20" />
         </div>
 
         {/* Content */}
