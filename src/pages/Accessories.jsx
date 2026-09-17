@@ -82,23 +82,6 @@ const categories = [
     //   { name: "Camel Flooring",      images: imgs(6, 7) },
     ],
   },
-  {
-    name: "Handrail",
-    subs: [
-      { name: "Rectangle Straight Black A",  images: imgs(9) },
-      { name: "Rectangle Straight Black",    images: imgs(10) },
-      { name: "Rectangle Straight GH 1",     images: imgs(11) },
-      { name: "Rectangle Straight GH",       images: imgs(12) },
-      { name: "Rectangle Straight RG 1",     images: imgs(13) },
-      { name: "Rectangle Straight RG",       images: imgs(14) },
-      { name: "Rectangle Straight SS 1",     images: imgs(15) },
-      { name: "Rectangle Straight SS",       images: imgs(16) },
-      { name: "Round Black",                 images: imgs(17) },
-      { name: "Round Gold",                  images: imgs(18) },
-      { name: "Round Rose Gold",             images: imgs(19) },
-      { name: "Round SS",                    images: imgs(20) },
-    ],
-  },
 ];
 
 // ─── HyLine specs ─────────────────────────────────────────────────────────────

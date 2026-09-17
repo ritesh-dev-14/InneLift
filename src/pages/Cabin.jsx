@@ -127,7 +127,6 @@ const categories = [
     name: "Gold",
     subs: [
       { name: "Sunrise", images: imgs(0) },
-      { name: "Amber", images: imgs(1) },
       { name: "Horizon", images: imgs(2) },
     ],
   },
@@ -143,12 +142,7 @@ const categories = [
     subs: [
       { name: "Spark", images: imgs(5) },
       { name: "Metro", images: imgs(6) },
-      { name: "Ridge", images: imgs(7) },
     ],
-  },
-  {
-    name: "Coffee Brown",
-    subs: [{ name: "Walnut", images: imgs(8) }],
   },
   {
     name: "Classic Series (SS)",

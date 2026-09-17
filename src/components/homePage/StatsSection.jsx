@@ -14,6 +14,8 @@ const StatsSection = () => {
   const teamCountRef = useRef(null);
   const installCountRef = useRef(null);
 
+  const formatNumber = (value) => new Intl.NumberFormat('en-US').format(value);
+
   useGSAP(() => {
     gsap.set('.stats-word', { color: 'rgba(255, 255, 255, 0.12)' });
 
@@ -40,15 +42,15 @@ const StatsSection = () => {
 
     const countData = { clients: 0, team: 0, installations: 0 };
     masterTimeline.to(countData, {
-      clients: 400,
-      team: 50,
-      installations: 500,
+      clients: 184,
+      team: 42,
+      installations: 1280,
       duration: 1.5,
       ease: 'power1.out',
       onUpdate: () => {
-        if (clientCountRef.current) clientCountRef.current.innerText = Math.floor(countData.clients);
-        if (teamCountRef.current) teamCountRef.current.innerText = Math.floor(countData.team);
-        if (installCountRef.current) installCountRef.current.innerText = Math.floor(countData.installations);
+        if (clientCountRef.current) clientCountRef.current.innerText = formatNumber(Math.floor(countData.clients));
+        if (teamCountRef.current) teamCountRef.current.innerText = formatNumber(Math.floor(countData.team));
+        if (installCountRef.current) installCountRef.current.innerText = formatNumber(Math.floor(countData.installations));
       }
     }, '<');
 

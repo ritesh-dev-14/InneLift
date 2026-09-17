@@ -128,12 +128,6 @@ const categories = [
       { name: "Black",    images: imgs(15) },
     ],
   },
-  {
-    name: "Swing Door",
-    subs: [
-      { name: "Silver",   images: imgs(16) },
-    ],
-  },
 ];
 
 const Doors = () => {
