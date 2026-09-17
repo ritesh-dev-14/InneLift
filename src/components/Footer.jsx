@@ -7,13 +7,10 @@ const Footer = () => {
     { label: 'Home', path: '/' },
     { label: 'Products', path: '/products' },
     { label: 'Testimonials', path: '/testimonials' },
-    { label: 'How We Work', path: '/how-we-work' },
   ];
 
   const supportLinks = [
     { label: 'Contact Us', path: '/contact' },
-    { label: 'Privacy Policy', path: '/privacy' },
-    { label: 'Terms of Service', path: '/legal' },
   ];
 
   const SOCIAL = {
