@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import InneTestimonialVideo from "../assets/InneTestimonial.mp4";
-import InneTestimonial1Video from "../assets/InneTestimonial1.mp4";
+import inneTestimonial from "../assets/InneTestimonial.mp4";
+import inneTestimonial1 from "../assets/InneTestimonial1.mp4";
 
 const TESTIMONIALS_DATA = [
   {
@@ -31,8 +31,32 @@ const TESTIMONIALS_DATA = [
 ];
 
 const TESTIMONIAL_VIDEOS = [
-  { id: "video-1", src: InneTestimonialVideo, label: "Testimonial 1" },
-  { id: "video-2", src: InneTestimonial1Video, label: "Testimonial 2" },
+  {
+    id: "instagram-1",
+    label: "Instagram Reel 1",
+    type: "instagram",
+    link: "https://www.instagram.com/p/Dc-yauNzlsG/",
+    embedUrl: "https://www.instagram.com/p/Dc-yauNzlsG/embed/?utm_source=ig_embed&ig_iframe=true",
+  },
+  {
+    id: "instagram-2",
+    label: "Instagram Reel 2",
+    type: "instagram",
+    link: "https://www.instagram.com/p/DcdoDO3zs0A/",
+    embedUrl: "https://www.instagram.com/p/DcdoDO3zs0A/embed/?utm_source=ig_embed&ig_iframe=true",
+  },
+  {
+    id: "video-1",
+    label: "InneTestimonial",
+    type: "video",
+    videoSrc: inneTestimonial1,
+  },
+  {
+    id: "video-2",
+    label: "InneTestimonial1",
+    type: "video",
+    videoSrc: inneTestimonial,
+  },
 ];
 
 const AUTOPLAY_INTERVAL = 4500;
@@ -249,39 +273,56 @@ export default function Testimonial() {
           </p>
         </div>
 
-        {/* Featured Video */}
+        {/* Featured Video Reels */}
         <div className="max-w-4xl mx-auto px-6 mb-20 relative z-20">
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_80px_-15px_rgba(34,211,238,0.2)] bg-black flex justify-center">
-            <button
-              type="button"
-              aria-label="Previous testimonial video"
-              onClick={() => goToVideo(-1)}
-              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/40 p-3 text-xl text-white backdrop-blur-sm transition hover:border-cyan-400/50 hover:text-cyan-300"
-            >
-              ←
-            </button>
+          <div className="relative rounded-[28px] overflow-hidden border border-white/10 bg-[#080d13] shadow-[0_25px_80px_-20px_rgba(34,211,238,0.25)]">
+            <div className="flex items-center justify-between absolute left-4 right-4 top-4 z-20">
+              <button
+                type="button"
+                aria-label="Previous testimonial video"
+                onClick={() => goToVideo(-1)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/30 text-xl text-white backdrop-blur-md transition hover:border-cyan-400/60 hover:text-cyan-300"
+              >
+                ←
+              </button>
 
-            <video 
-              key={TESTIMONIAL_VIDEOS[videoIndex].id}
-              src={TESTIMONIAL_VIDEOS[videoIndex].src} 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              controls 
-              className="max-w-full max-h-[75vh] w-auto h-auto object-contain"
-            />
+              <button
+                type="button"
+                aria-label="Next testimonial video"
+                onClick={() => goToVideo(1)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/30 text-xl text-white backdrop-blur-md transition hover:border-cyan-400/60 hover:text-cyan-300"
+              >
+                →
+              </button>
+            </div>
 
-            <button
-              type="button"
-              aria-label="Next testimonial video"
-              onClick={() => goToVideo(1)}
-              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/40 p-3 text-xl text-white backdrop-blur-sm transition hover:border-cyan-400/50 hover:text-cyan-300"
-            >
-              →
-            </button>
+            <div className="relative group">
+              {TESTIMONIAL_VIDEOS[videoIndex].type === "instagram" ? (
+                <iframe
+                  key={TESTIMONIAL_VIDEOS[videoIndex].id}
+                  title={TESTIMONIAL_VIDEOS[videoIndex].label}
+                  src={TESTIMONIAL_VIDEOS[videoIndex].embedUrl}
+                  className="h-[620px] w-full border-0 bg-black transition duration-500 group-hover:scale-[1.01]"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  scrolling="no"
+                  frameBorder="0"
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                />
+              ) : (
+                <video
+                  key={TESTIMONIAL_VIDEOS[videoIndex].id}
+                  title={TESTIMONIAL_VIDEOS[videoIndex].label}
+                  src={TESTIMONIAL_VIDEOS[videoIndex].videoSrc}
+                  className="h-[620px] w-full bg-black object-contain transition duration-500 group-hover:scale-[1.01]"
+                  controls
+                  playsInline
+                />
+              )}
 
-            <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-black/5 pointer-events-none" />
+
+            </div>
           </div>
         </div>
 
