@@ -28,6 +28,7 @@ import Platinum1 from "../assets/Cabin/Platinum1.jpeg";
 import Platinum2 from "../assets/Cabin/Platinum2.jpeg";
 import Platinum3 from "../assets/Cabin/Platinum3.jpeg";
 import Opulent from "../assets/Cabin/Opulent.jpeg";
+import HalfBlack from "../assets/Cabin/Half_Black.jpeg";
 
 // Shared image pool (replace with real per-collection photos)
 const pool = [
@@ -42,22 +43,23 @@ const pool = [
   Coffe,
   Classic,
   Bespoke,
-    Ultima,
-    Royalm1,
-    Royalm2,
-    Royalm3,
-    Royce1,
-    Royce2,
-    Royce3,
-    Palladium1,
-    Palladium2,
-    Palladium3,
-    Palladium4,
-    Palladium5,
-    Platinum1,
-    Platinum2,
-    Platinum3,
-    Opulent,
+  Ultima,
+  Royalm1,
+  Royalm2,
+  Royalm3,
+  Royce1,
+  Royce2,
+  Royce3,
+  Palladium1,
+  Palladium2,
+  Palladium3,
+  Palladium4,
+  Palladium5,
+  Platinum1,
+  Platinum2,
+  Platinum3,
+  Opulent,
+  HalfBlack
 ];
 
 const imgs = (...indices) => indices.map((i) => pool[i % pool.length]);
@@ -127,13 +129,13 @@ const categories = [
     name: "Gold",
     subs: [
       { name: "Sunrise", images: imgs(0) },
-      { name: "Horizon", images: imgs(2) },
+      { name: "Horizon", images: imgs(1) },
     ],
   },
   {
     name: "Rose Gold",
     subs: [
-      { name: "Blossom", images: imgs(3) },
+      { name: "Blossom", images: imgs(2) },
       { name: "Petal", images: imgs(4) },
     ],
   },
@@ -142,6 +144,7 @@ const categories = [
     subs: [
       { name: "Spark", images: imgs(5) },
       { name: "Metro", images: imgs(6) },
+      { name: "Black", images: imgs(27) },
     ],
   },
   {
