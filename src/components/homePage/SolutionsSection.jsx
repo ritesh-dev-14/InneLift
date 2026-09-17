@@ -159,12 +159,7 @@ const SolutionsSection = () => {
                 <p className="text-sm sm:text-base leading-relaxed text-gray-400 font-light max-w-md">
                   {item.desc}
                 </p>
-                <div className="pt-2">
-                  <button className="group flex items-center gap-3 text-[11px] sm:text-xs font-bold tracking-widest text-cyan-400 uppercase border border-cyan-500/20 bg-cyan-950/20 px-5 py-3 sm:px-6 sm:py-3.5 rounded-full backdrop-blur-sm transition-all duration-300 hover:bg-cyan-400 hover:text-black hover:border-cyan-400 shadow-[0_4px_20px_rgba(34,211,238,0.1)]">
-                    <span>Initialize Blueprint</span>
-                    <span className="transform translate-x-0 group-hover:translate-x-1.5 transition-transform duration-300 text-sm">→</span>
-                  </button>
-                </div>
+                
               </div>
 
               <div className="slide-img-wrap order-1 lg:order-2 lg:col-span-7 h-[40vh] sm:h-[50vh] lg:h-[68vh] w-full relative group rounded-2xl overflow-hidden border border-white/[0.06] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] z-10">

@@ -70,18 +70,6 @@ const categories = [
       { name: "Fireman Switch",    images: imgs(1) },
     ],
   },
-  {
-    name: "Flooring",
-    subs: [
-      { name: "Golden Liberty",      images: imgs(8) },
-      { name: "Satverio",            images: imgs(3) },
-      { name: "Silver Liberty Tile", images: imgs(5) },
-      { name: "White & Brown",       images: imgs(4) },
-      { name: "Wooden Flooring",     images: imgs(2) },
-    //   { name: "Black Flooring",      images: imgs(5, 6) },
-    //   { name: "Camel Flooring",      images: imgs(6, 7) },
-    ],
-  },
 ];
 
 // ─── HyLine specs ─────────────────────────────────────────────────────────────
