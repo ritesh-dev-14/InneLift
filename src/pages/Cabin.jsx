@@ -152,28 +152,6 @@ const categories = [
       { name: "Elite (DESIGNER)", images: imgs(11) },
     ],
   },
-  {
-    name: "Crown Series (COLOURED SS)",
-    subs: [
-      { name: "Grand (SSHL+MIRROR)", images: imgs(12,13,14) },
-      { name: "Noble (DESIGNER)", images: imgs(15, 16, 17) },
-    ],
-  },
-  {
-    name: "Urban Series (PRELAM)",
-    subs: [
-      { name: "Crafted (CUSTOMISED)", images: imgs(18,19,20) },
-      { name: "Linen (DESIGNER)", images: imgs(21,22) },
-    ],
-  },
-  {
-    name: "Premium Series",
-    subs: [{ name: "Pinnacle (DESIGNER)", images: imgs(23,24,25) }],
-  },
-  {
-    name: "Luxury Series (MS)",
-    subs: [{ name: "Prestige (DESIGNER)", images: imgs(26) }],
-  },
 ];
 
 

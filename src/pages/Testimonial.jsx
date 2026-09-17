@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import InneTestimonialVideo from "../assets/InneTestimonial.mp4";
+import InneTestimonial1Video from "../assets/InneTestimonial1.mp4";
 
 const TESTIMONIALS_DATA = [
   {
@@ -27,6 +28,11 @@ const TESTIMONIALS_DATA = [
     quote: "Vertical transit logistics require absolute, zero-fault reliability. These elevator solutions did not just deliver stability—the custom styling options added exceptional value to our workspace aesthetics.",
     rating: 5,
   },
+];
+
+const TESTIMONIAL_VIDEOS = [
+  { id: "video-1", src: InneTestimonialVideo, label: "Testimonial 1" },
+  { id: "video-2", src: InneTestimonial1Video, label: "Testimonial 2" },
 ];
 
 const AUTOPLAY_INTERVAL = 4500;
@@ -163,6 +169,7 @@ const styles = `
 
 export default function Testimonial() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [videoIndex, setVideoIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef(null);
   const nextSlideRef = useRef(null);
@@ -188,6 +195,13 @@ export default function Testimonial() {
     stopAutoPlay();
     setActiveIndex(index);
     setTimeout(startAutoPlay, AUTOPLAY_INTERVAL * 1.5);
+  };
+
+  const goToVideo = (direction) => {
+    setVideoIndex((prev) => {
+      const next = (prev + direction + TESTIMONIAL_VIDEOS.length) % TESTIMONIAL_VIDEOS.length;
+      return next;
+    });
   };
 
   const getSlides = () => {
@@ -238,8 +252,18 @@ export default function Testimonial() {
         {/* Featured Video */}
         <div className="max-w-4xl mx-auto px-6 mb-20 relative z-20">
           <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_80px_-15px_rgba(34,211,238,0.2)] bg-black flex justify-center">
+            <button
+              type="button"
+              aria-label="Previous testimonial video"
+              onClick={() => goToVideo(-1)}
+              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/40 p-3 text-xl text-white backdrop-blur-sm transition hover:border-cyan-400/50 hover:text-cyan-300"
+            >
+              ←
+            </button>
+
             <video 
-              src={InneTestimonialVideo} 
+              key={TESTIMONIAL_VIDEOS[videoIndex].id}
+              src={TESTIMONIAL_VIDEOS[videoIndex].src} 
               autoPlay 
               loop 
               muted 
@@ -247,7 +271,16 @@ export default function Testimonial() {
               controls 
               className="max-w-full max-h-[75vh] w-auto h-auto object-contain"
             />
-            {/* Ambient shadow for the video border */}
+
+            <button
+              type="button"
+              aria-label="Next testimonial video"
+              onClick={() => goToVideo(1)}
+              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/40 p-3 text-xl text-white backdrop-blur-sm transition hover:border-cyan-400/50 hover:text-cyan-300"
+            >
+              →
+            </button>
+
             <div className="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"></div>
           </div>
         </div>

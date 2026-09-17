@@ -163,8 +163,8 @@ const Footer = () => {
                   </div>
                   <div>
                     <span className="text-[10px] font-bold tracking-widest text-gray-500 uppercase block mb-0.5">Email Us</span>
-                    <a href="mailto:lifts.works@gmail.com" className="text-xs sm:text-sm text-gray-200 font-semibold hover:text-cyan-400 transition-colors">
-                      lifts.works@gmail.com
+                    <a href="mailto:inne.lifts@gmail.com" className="text-xs sm:text-sm text-gray-200 font-semibold hover:text-cyan-400 transition-colors">
+                      inne.lifts@gmail.com
                     </a>
                   </div>
                 </div>
@@ -179,7 +179,8 @@ const Footer = () => {
                   <div>
                     <span className="text-[10px] font-bold tracking-widest text-gray-500 uppercase block mb-0.5">Call Us</span>
                     <a href="tel:+919875991350" className="text-sm sm:text-base text-white font-bold hover:text-cyan-400 transition-colors">
-                      +91 98759 91350 , +91 81238 13000                    </a>
+                      +91 98759 91350, +91 81238 13000
+                    </a>
                   </div>
                 </div>
               </div>

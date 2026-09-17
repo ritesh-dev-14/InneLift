@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CardAccess from "../assets/Accessories/CardAccess.jpeg";
-import FireAlarm from "../assets/Accessories/FireAlarm.jpeg";
+import FireAlarm from "../assets/Accessories/FireAlarm.png";
 import Floor1 from "../assets/Accessories/Floor1.jpeg";
 import Floor2 from "../assets/Accessories/Floor2.jpeg";
 import Floor3 from "../assets/Accessories/Floor3.jpeg";
