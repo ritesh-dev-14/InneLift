@@ -29,6 +29,8 @@ import Platinum2 from "../assets/Cabin/Platinum2.jpeg";
 import Platinum3 from "../assets/Cabin/Platinum3.jpeg";
 import Opulent from "../assets/Cabin/Opulent.jpeg";
 import HalfBlack from "../assets/Cabin/Half_Black.jpeg";
+import Gold from "../assets/Cabin/Gold.jpeg";
+import HalfRose from "../assets/Cabin/HalfRose.jpeg";
 
 // Shared image pool (replace with real per-collection photos)
 const pool = [
@@ -59,7 +61,9 @@ const pool = [
   Platinum2,
   Platinum3,
   Opulent,
-  HalfBlack
+  HalfBlack,
+  Gold,
+  HalfRose,
 ];
 
 const imgs = (...indices) => indices.map((i) => pool[i % pool.length]);
@@ -142,9 +146,11 @@ const categories = [
   {
     name: "Steel Hairline",
     subs: [
+      { name: "Gold", images: imgs(28) },
       { name: "Spark", images: imgs(5) },
-      { name: "Metro", images: imgs(6) },
+      { name: "Rose", images: imgs(29) },
       { name: "Black", images: imgs(27) },
+      
     ],
   },
   {
