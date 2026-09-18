@@ -3,7 +3,8 @@ import gsap from 'gsap';
 
 const Hero = ({ isLoading }) => {
   const containerRef = useRef(null);
-  const videoRef = useRef(null);
+  const phoneVideoRef = useRef(null);
+  const desktopVideoRef = useRef(null);
   const headingRef = useRef(null);
   const paragraphRef = useRef(null);
   useEffect(() => {
@@ -22,7 +23,8 @@ const Hero = ({ isLoading }) => {
       { opacity: 1, y: 0, stagger: 0.015, duration: 0.8, ease: 'power2.out', delay: 0.4 }
     );
 
-    const video = videoRef.current;
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    const video = isDesktop ? desktopVideoRef.current : phoneVideoRef.current;
     const startVideo = () => video?.play().catch(() => {});
 
     if (isLoading) return undefined;
@@ -32,6 +34,10 @@ const Hero = ({ isLoading }) => {
 
     return () => video?.removeEventListener('canplay', startVideo);
   }, [isLoading]);
+
+  const handleDesktopVideoEnded = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const splitTextIntoLetters = (text) =>
     text.split(/\s+/).filter(Boolean).map((word, wordIndex) => (
@@ -95,12 +101,21 @@ const Hero = ({ isLoading }) => {
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
           <div className="relative h-full w-full overflow-hidden md:w-[80%] lg:w-[75%]">
             <video
-              ref={videoRef}
-              className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-100"
+              ref={phoneVideoRef}
+              className="pointer-events-none absolute inset-0 block h-full w-full object-contain opacity-100 md:hidden"
               src="/PhoneAnimation.mp4"
               muted
               playsInline
               preload="auto"
+            />
+            <video
+              ref={desktopVideoRef}
+              className="pointer-events-none absolute inset-0 hidden h-full w-full object-cover opacity-100 md:block"
+              src="/DesktopVideo.mp4"
+              muted
+              playsInline
+              preload="auto"
+              onEnded={handleDesktopVideoEnded}
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05070b] via-transparent to-transparent opacity-40" />
           </div>
