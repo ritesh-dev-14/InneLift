@@ -1,111 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const Hero = () => {
+const Hero = ({ isLoading }) => {
   const containerRef = useRef(null);
-  const canvasRef = useRef(null);
+  const videoRef = useRef(null);
   const headingRef = useRef(null);
   const paragraphRef = useRef(null);
-  const leftLabelRef = useRef(null);
-  const rightLabelRef = useRef(null);
-
-  const frameConfigRef = useRef({ frameCount: 0, extension: 'jpg' });
-  const [ready, setReady] = useState(false);
-
   useEffect(() => {
-    fetch('/manifest.json')
-      .then((res) => res.json())
-      .then((data) => {
-        frameConfigRef.current = data;
-        setReady(true);
-      })
-      .catch((err) => console.error('manifest.json load error:', err));
-  }, []);
-
-  const framePath = (index) => {
-    const { extension } = frameConfigRef.current;
-    const assetFolder = window.innerWidth >= 768 ? '/Images' : '/PhoneImages';
-    return `${assetFolder}/ezgif-frame-${String(index).padStart(3, '0')}.${extension}`;
-  };
-
-  useGSAP(() => {
-    if (!ready) return;
-
-    const { frameCount } = frameConfigRef.current;
-    if (!frameCount) return;
-
-    // Kill only THIS component's ScrollTriggers, not all of them globally
-    // (killing all breaks Stats and Solutions sections)
-    ScrollTrigger.getAll()
-      .filter((st) => st.vars?.id === 'hero-pin')
-      .forEach((st) => st.kill());
-
-    const canvas = canvasRef.current;
-    const context2D = canvas?.getContext('2d');
-
-    if (!canvas || !context2D || !headingRef.current || !paragraphRef.current) return;
-
-    context2D.imageSmoothingEnabled = true;
-    context2D.imageSmoothingQuality = 'high';
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    const sizeCanvas = () => {
-      const { clientWidth, clientHeight } = canvas;
-      canvas.width = Math.round(clientWidth * dpr);
-      canvas.height = Math.round(clientHeight * dpr);
-      context2D.setTransform(dpr, 0, 0, dpr, 0, 0);
-      context2D.imageSmoothingEnabled = true;
-      context2D.imageSmoothingQuality = 'high';
-    };
-
-    sizeCanvas();
-
-    const sequence = { frame: 1 };
-    let images = [];
-
-    const isMobile = window.innerWidth < 768;
-    const actualFrameCount = isMobile ? Math.min(frameCount, 177) : frameCount;
-
-    gsap.set(canvasRef.current, { opacity: 0 });
-    images = Array.from({ length: actualFrameCount }, (_, index) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = framePath(index + 1);
-      return img;
-    });
-
-    const renderFrame = () => {
-      const targetIndex = Math.max(1, Math.min(actualFrameCount, Math.round(sequence.frame)));
-      const img = images[targetIndex - 1];
-      if (!img || !img.naturalWidth) return;
-
-      const imgWidth = img.naturalWidth;
-      const imgHeight = img.naturalHeight;
-      const canvasWidth = canvas.clientWidth || window.innerWidth;
-      const canvasHeight = canvas.clientHeight || window.innerHeight;
-
-      const ratio = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
-      const newWidth = Math.floor(imgWidth * ratio);
-      const newHeight = Math.floor(imgHeight * ratio);
-      const x = Math.floor((canvasWidth - newWidth) / 2);
-      const y = Math.floor((canvasHeight - newHeight) / 2);
-
-      context2D.clearRect(0, 0, canvasWidth, canvasHeight);
-      context2D.drawImage(img, x, y, newWidth, newHeight);
-    };
-
-    images.forEach((img) => { img.onload = renderFrame; });
-
-    if (images[0]) {
-      if (images[0].complete) renderFrame();
-      else images[0].addEventListener('load', renderFrame);
-    }
-
     const headingLetters = headingRef.current.querySelectorAll('.letter');
     const paragraphWords = paragraphRef.current.querySelectorAll('.word');
 
@@ -121,72 +22,16 @@ const Hero = () => {
       { opacity: 1, y: 0, stagger: 0.015, duration: 0.8, ease: 'power2.out', delay: 0.4 }
     );
 
-    const mm = gsap.matchMedia();
+    const video = videoRef.current;
+    const startVideo = () => video?.play().catch(() => {});
 
-    mm.add('(min-width: 768px)', () => {
-      const scrollTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'hero-pin',             // Named ID so we only kill THIS trigger on cleanup
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=450%',
-          scrub: 2,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          refreshPriority: 10,        // Hero calculates FIRST — higher = earlier
-        },
-      });
+    if (isLoading) return undefined;
 
-      scrollTimeline.to(canvasRef.current, { opacity: 1, duration: 0.2 }, 0);
-      scrollTimeline.to(headingRef.current, { opacity: 0, y: -40, scale: 0.97, duration: 0.8 }, 0.05);
-      scrollTimeline.to(paragraphRef.current, { opacity: 0, y: -25, duration: 0.8 }, 0.08);
+    if (video?.readyState >= 3) startVideo();
+    else video?.addEventListener('canplay', startVideo, { once: true });
 
-      scrollTimeline.to(
-        sequence,
-        { frame: frameCount, duration: 4, ease: 'none', onUpdate: renderFrame },
-        0
-      );
-
-      scrollTimeline.to(leftLabelRef.current, { x: 30, y: -10, opacity: 0.8, duration: 1.2 }, 0.1);
-      scrollTimeline.to(rightLabelRef.current, { x: -30, y: 10, opacity: 0.8, duration: 1.2 }, 0.1);
-
-      return () => { scrollTimeline.kill(); };
-    });
-
-    mm.add('(max-width: 767px)', () => {
-      const scrollTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'hero-pin-mobile',
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=450%',
-          scrub: 2,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          refreshPriority: 10,
-        },
-      });
-
-      scrollTimeline.to(canvasRef.current, { opacity: 1, duration: 0.2 }, 0);
-      scrollTimeline.to(headingRef.current, { opacity: 0, y: -24, scale: 0.98, duration: 0.8 }, 0.04);
-      scrollTimeline.to(paragraphRef.current, { opacity: 0, y: -18, duration: 0.8 }, 0.08);
-      scrollTimeline.to(sequence, { frame: frameCount, duration: 4, ease: 'none', onUpdate: renderFrame }, 0);
-
-      return () => { scrollTimeline.kill(); };
-    });
-
-    const handleResize = () => { sizeCanvas(); };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      mm.revert();
-    };
-  }, { scope: containerRef, dependencies: [ready] });
+    return () => video?.removeEventListener('canplay', startVideo);
+  }, [isLoading]);
 
   const splitTextIntoLetters = (text) =>
     text.split(/\s+/).filter(Boolean).map((word, wordIndex) => (
@@ -220,10 +65,6 @@ const Hero = () => {
             );
             animation: cableMove 6s linear infinite;
           }
-          .crisp-canvas {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-          }
           @media (max-width: 767px) {
             #home {
               background-image: linear-gradient(
@@ -250,21 +91,28 @@ const Hero = () => {
           <div className="lift-cable absolute left-2/3 top-0 h-[200%] w-px" />
         </div>
 
-        {/* Canvas Container */}
+        {/* Phone Video */}
         <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
           <div className="relative h-full w-full overflow-hidden md:w-[80%] lg:w-[75%]">
-            <canvas ref={canvasRef} className="crisp-canvas block h-full w-full opacity-100" />
+            <video
+              ref={videoRef}
+              className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-100"
+              src="/PhoneAnimation.mp4"
+              muted
+              playsInline
+              preload="auto"
+            />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05070b] via-transparent to-transparent opacity-40" />
           </div>
         </div>
 
         {/* Floating Side Labels */}
-        <div ref={leftLabelRef} className="pointer-events-none absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rotate-[-90deg] flex-row items-center gap-4 text-[clamp(0.7rem,1vw,1rem)] font-medium uppercase tracking-[0.5em] text-white/30 md:flex">
+        <div className="pointer-events-none absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rotate-[-90deg] flex-row items-center gap-4 text-[clamp(0.7rem,1vw,1rem)] font-medium uppercase tracking-[0.5em] text-white/30 md:flex">
           <span className="w-12 h-[1px] bg-white/20" />
           <span>INNE LIFT</span>
           <span className="w-12 h-[1px] bg-white/20" />
         </div>
-        <div ref={rightLabelRef} className="pointer-events-none absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rotate-[90deg] flex-row items-center gap-4 text-[clamp(0.7rem,1vw,1rem)] font-medium uppercase tracking-[0.5em] text-white/30 md:flex">
+        <div className="pointer-events-none absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rotate-[90deg] flex-row items-center gap-4 text-[clamp(0.7rem,1vw,1rem)] font-medium uppercase tracking-[0.5em] text-white/30 md:flex">
           <span className="w-12 h-[1px] bg-white/20" />
           <span>INNE LIFT</span>
           <span className="w-12 h-[1px] bg-white/20" />

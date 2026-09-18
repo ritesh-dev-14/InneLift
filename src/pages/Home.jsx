@@ -5,10 +5,10 @@ import SolutionsSection from '../components/homePage/SolutionsSection'
 // import ProjectsSection from '../components/homePage/ProjectSection'
 import ExistingBuildings from '../components/homePage/ExistingBuildings'
 
-const Home = () => {
+const Home = ({ isLoading }) => {
   return (
     <div>
-      <Hero/>
+      <Hero isLoading={isLoading} />
       <StatsSection/>
       <SolutionsSection/>
       {/* <ProjectsSection/> */}

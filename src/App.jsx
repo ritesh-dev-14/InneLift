@@ -98,7 +98,7 @@ function App() {
       <Navbar isLoading={isLoading} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home isLoading={isLoading} />} />
         <Route path="/products" element={<Products />} />
         <Route path="/cabin" element={<Cabin />} />
         <Route path="/doors" element={<Doors />} />
