@@ -23,6 +23,7 @@ import RoundBlack from "../assets/Accessories/RoundBlack.png";
 import RoundGold from "../assets/Accessories/RoundGold.png";
 import RoundPink from "../assets/Accessories/RoundPink.png";
 import RoundSilver from "../assets/Accessories/RoundSilver.png";
+import Intercom from "../assets/Accessories/Intercom.png";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -49,7 +50,8 @@ const pool = [
   RoundBlack,
   RoundGold,
   RoundPink,
-  RoundSilver
+  RoundSilver,
+  Intercom
 ];
 
 const imgs = (...indices) => indices.map((i) => pool[i % pool.length]);
@@ -68,6 +70,12 @@ const categories = [
     subs: [
     //   { name: "Card Access System", images: imgs(0) },
       { name: "Fireman Switch",    images: imgs(1) },
+    ],
+  },
+  {
+    name: "Intercom System",
+    subs: [
+      { name: "Intercom", images: imgs(21) },
     ],
   },
 ];

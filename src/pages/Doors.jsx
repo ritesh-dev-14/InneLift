@@ -18,6 +18,9 @@ import Door14 from "../assets/Doors/Door14.jpeg";
 import Door15 from "../assets/Doors/Door15.jpeg";
 import Door16 from "../assets/Doors/Door16.jpeg";
 import Door17 from "../assets/Doors/Door17.png";
+import Rose from "../assets/Doors/Gold.png";
+import Gold from "../assets/Doors/Rose.png";
+import HalfBlack from "../assets/Doors/HalfBlack.png";
 
 // Shared placeholder image pool — replace each imgs() call with real door photos
 const pool = [
@@ -38,6 +41,9 @@ const pool = [
   Door15,
   Door16,
   Door17,
+  Rose,
+  Gold,
+  HalfBlack,
 ];
 
 const imgs = (...indices) => indices.map((i) => pool[i % pool.length]);
@@ -105,9 +111,9 @@ const categories = [
     name: "Half Vision Door",
     subs: [
       { name: "Silver",   images: imgs(4) },
-      { name: "Gold",     images: imgs(5) },
-      { name: "Rose Gold",images: imgs(6) },
-      { name: "Black",    images: imgs(7) },
+      { name: "Gold",     images: imgs(17) },
+      { name: "Rose Gold",images: imgs(18) },
+      { name: "Black",    images: imgs(19) },
     ],
   },
   // {
